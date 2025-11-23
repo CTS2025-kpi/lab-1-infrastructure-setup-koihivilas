@@ -1,0 +1,50 @@
+---
+Metadata:
+  AWSToolsMetrics:
+    IaC_Generator: "arn:aws:cloudformation:eu-central-1:499466646268:generatedTemplate/474c0c6e-8ce9-4ebe-8d5b-389e23e5df1a"
+Resources:
+  IAMRoleRoletoassume1:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/"
+      ManagedPolicyArns:
+      - Ref: "IAMManagedPolicyPolicyviewonlypolicy1"
+      MaxSessionDuration: 3600
+      RoleName: "role-to-assume-1"
+      Description: ""
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Condition: {}
+          Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            AWS: "arn:aws:iam::499466646268:root"
+  IAMManagedPolicyPolicyviewonlypolicy1:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "view-only-policy-1"
+      Path: "/"
+      Description: ""
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "*"
+          Action:
+          - "ec2:Describe*"
+          - "ec2:Get*"
+          - "ec2:List*"
+          - "s3:List*"
+          - "s3:Describe*"
+          - "s3:Get*"
+          - "iam:Get*"
+          - "iam:List*"
+          Effect: "Allow"
+      Roles:
+      - "role-to-assume-1"
+      Users: []
